@@ -1,6 +1,7 @@
 import pytest
 from selene import browser
 
+
 @pytest.fixture(scope='function', autouse=True)
 def browser_setup():
     browser.config.base_url = 'https://letterboxd.com/'

@@ -1,4 +1,6 @@
-from selene import browser, have, be
+from selene import browser
+import allure
+
 
 class HomePage():
 
@@ -6,4 +8,5 @@ class HomePage():
         self.browser = browser
 
     def open(self):
-        browser.open('/')
+        with allure.step('Open Home Page'):
+            browser.open('/')

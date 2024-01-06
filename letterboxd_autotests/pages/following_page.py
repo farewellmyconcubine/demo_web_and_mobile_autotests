@@ -1,4 +1,6 @@
-from selene import browser, have, be
+from selene import browser, have
+import allure
+
 
 class FollowingPage():
 
@@ -6,19 +8,27 @@ class FollowingPage():
         self.browser = browser
 
     def open(self, login):
-        browser.open(f'/{login}/following')
+        with allure.step('Open following page'):
+            browser.open(f'/{login}/following')
 
     def open_user_profile(self, user_login):
-        browser.open(f'/{user_login}')
+        with allure.step('Open user profile'):
+            browser.open(f'/{user_login}')
 
     def follow_user(self):
-        browser.element('.follow-button-wrapper').click()
+        with allure.step('Follow user'):
+            browser.element('.follow-button-wrapper').click()
 
     def unfollow_user(self):
-        browser.element('.-following').click()
+        with allure.step('Unfollow user'):
+            browser.element('.-following').click()
 
     def assert_following(self, user_login):
-        browser.element(f'//*[@class="person-summary"]//a[contains(text(), "{user_login}")]').should(have.text(user_login))
+        with allure.step('Assert a user is followed'):
+            browser.element(f'//*[@class="person-summary"]//a[contains(text(), "{user_login}")]').should(
+                have.text(user_login))
 
     def assert_unfollow(self, user_login):
-        browser.element(f'//*[@class="person-summary"]//a[contains(text(), "{user_login}")]').should(have.no.text(user_login))
+        with allure.step('Assert a user is unfollowed'):
+            browser.element(f'//*[@class="person-summary"]//a[contains(text(), "{user_login}")]').should(
+                have.no.text(user_login))
